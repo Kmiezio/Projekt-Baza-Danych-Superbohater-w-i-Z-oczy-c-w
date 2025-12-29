@@ -1,20 +1,26 @@
-//Plik zawiera funkcję main, będącą punktem startowym programu.
-// Odpowiada za uruchomienie menu głównego oraz zakończenie programu.
 #include <stdio.h>
 #include "menu.h"
+#include "lista.h"
+#include "postac.h"
 
 int main(void) {
-    int wybor;
+    Lista lista;
+    inicjalizuj_liste(&lista);
 
+    int wybor;
     do {
         wyswietl_menu();
         wybor = pobierz_wybor();
 
-        printf("Wybrales opcje: %d\n", wybor);
+        switch (wybor) {
+            case 1: {
+                Postac p = utworz_postac();
+                dodaj_postac(&lista, p); 
+                break;
+            }
+        }
 
     } while (wybor != 0);
 
-    printf("Koniec programu.\n");
     return 0;
 }
-
