@@ -27,7 +27,6 @@ typedef struct {
     Status status;
 } Postac;
 
-/* ✔️ TYLKO to */
 Postac utworz_postac(void);
 
 #endif
