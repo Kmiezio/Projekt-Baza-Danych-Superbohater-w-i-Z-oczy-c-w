@@ -1,6 +1,4 @@
-//Plik odpowiada za interakcję z użytkownikiem.
-//Wyświetla menu tekstowe, pobiera wybory użytkownika 
-// i wywołuje odpowiednie funkcje logiki programu.
+
 #include <stdio.h>
 #include "menu.h"
 
@@ -22,6 +20,6 @@ void wyswietl_menu(void) {
 int pobierz_wybor(void) {
     int wybor;
     scanf("%d", &wybor);
+    getchar(); // czyszczenie bufora
     return wybor;
 }
-
