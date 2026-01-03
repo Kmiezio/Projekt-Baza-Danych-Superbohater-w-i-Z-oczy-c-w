@@ -20,6 +20,6 @@ void wyswietl_menu(void) {
 int pobierz_wybor(void) {
     int wybor;
     scanf("%d", &wybor);
-    getchar(); // czyszczenie bufora
+    getchar();
     return wybor;
 }
