@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lista.h"
 
 void inicjalizuj_liste(Lista *lista) {
@@ -13,28 +14,26 @@ void dodaj_postac(Lista *lista, Postac p) {
     nowy->dane = p;
     nowy->next = NULL;
 
-    if (lista->head == NULL) {
+    if (!lista->head) {
         lista->head = nowy;
         return;
     }
 
     Wezel *tmp = lista->head;
-    while (tmp->next != NULL) {
+    while (tmp->next)
         tmp = tmp->next;
-    }
 
     tmp->next = nowy;
 }
 
 void wyswietl_liste(const Lista *lista) {
     Wezel *tmp = lista->head;
-
-    if (tmp == NULL) {
+    if (!tmp) {
         printf("Lista jest pusta.\n");
         return;
     }
 
-    while (tmp != NULL) {
+    while (tmp) {
         printf("Pseudonim: %s | Zagrozenie: %d | Dzielnica: %s\n",
                tmp->dane.pseudonim,
                tmp->dane.poziom_zagrozenia,
@@ -43,11 +42,39 @@ void wyswietl_liste(const Lista *lista) {
     }
 }
 
-void zwolnij_liste(Lista *lista) {
-    Wezel *tmp;
+Postac* znajdz_postac(Lista *lista, const char *pseudonim) {
+    Wezel *tmp = lista->head;
+    while (tmp) {
+        if (strcmp(tmp->dane.pseudonim, pseudonim) == 0)
+            return &tmp->dane;
+        tmp = tmp->next;
+    }
+    return NULL;
+}
 
-    while (lista->head != NULL) {
-        tmp = lista->head;
+int usun_postac(Lista *lista, const char *pseudonim) {
+    Wezel *akt = lista->head;
+    Wezel *pop = NULL;
+
+    while (akt) {
+        if (strcmp(akt->dane.pseudonim, pseudonim) == 0) {
+            if (!pop)
+                lista->head = akt->next;
+            else
+                pop->next = akt->next;
+
+            free(akt);
+            return 1;
+        }
+        pop = akt;
+        akt = akt->next;
+    }
+    return 0;
+}
+
+void zwolnij_liste(Lista *lista) {
+    while (lista->head) {
+        Wezel *tmp = lista->head;
         lista->head = lista->head->next;
         free(tmp);
     }
