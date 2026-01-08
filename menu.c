@@ -12,6 +12,7 @@ void wyswietl_menu(void) {
     printf("| 3. Usun postac            |\n");
     printf("| 4. Wyszukaj               |\n");
     printf("| 5. Wyswietl wszystkie     |\n");
+    printf("| 6. Sortuj po zagrozeniu   |\n");
     printf("| 0. Wyjscie                |\n");
     printf("+---------------------------+\n");
     printf("Wybor: ");
