@@ -16,6 +16,8 @@ void inicjalizuj_liste(Lista *lista);
 void dodaj_postac(Lista *lista, Postac p);
 void wyswietl_liste(const Lista *lista);
 void zwolnij_liste(Lista *lista);
+void sortuj_po_zagrozeniu(Lista *lista);
+
 
 Postac* znajdz_postac(Lista *lista, const char *pseudonim);
 int usun_postac(Lista *lista, const char *pseudonim);
