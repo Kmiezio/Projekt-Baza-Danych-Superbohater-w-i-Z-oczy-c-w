@@ -38,10 +38,6 @@ Postac utworz_postac(void) {
 void edytuj_postac(Postac *p) {
     int tmp;
 
-    printf("Nowy pseudonim: ");
-    fgets(p->pseudonim, MAX_TXT, stdin);
-    p->pseudonim[strcspn(p->pseudonim, "\n")] = 0;
-
     printf("Nowa rola (0-3): ");
     scanf("%d", &tmp); getchar();
     p->rola = (Rola)tmp;
