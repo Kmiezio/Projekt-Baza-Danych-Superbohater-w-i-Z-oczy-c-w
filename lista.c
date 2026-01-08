@@ -58,6 +58,12 @@ int usun_postac(Lista *lista, const char *pseudonim) {
 
     while (akt) {
         if (strcmp(akt->dane.pseudonim, pseudonim) == 0) {
+
+            if (akt->dane.status == UWIEZIONY) {
+                printf("Nie mozna usunac postaci – status: UWIEZIONY.\n");
+                return 0;
+            }
+
             if (!pop)
                 lista->head = akt->next;
             else
@@ -72,10 +78,29 @@ int usun_postac(Lista *lista, const char *pseudonim) {
     return 0;
 }
 
+
 void zwolnij_liste(Lista *lista) {
     while (lista->head) {
         Wezel *tmp = lista->head;
         lista->head = lista->head->next;
         free(tmp);
     }
+}
+void sortuj_po_zagrozeniu(Lista *lista) {
+    if (!lista->head) return;
+
+    int zamiana;
+    do {
+        zamiana = 0;
+        Wezel *a = lista->head;
+        while (a->next) {
+            if (a->dane.poziom_zagrozenia < a->next->dane.poziom_zagrozenia) {
+                Postac tmp = a->dane;
+                a->dane = a->next->dane;
+                a->next->dane = tmp;
+                zamiana = 1;
+            }
+            a = a->next;
+        }
+    } while (zamiana);
 }
