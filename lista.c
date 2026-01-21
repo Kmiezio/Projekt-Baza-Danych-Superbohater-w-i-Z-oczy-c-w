@@ -177,3 +177,4 @@ void sortuj_po_pseudonimie(Lista *lista) {
         }
     } while (zamiana);
 }
+
