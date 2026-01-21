@@ -28,3 +28,4 @@ Postac* znajdz_postac(Lista *lista, const char *pseudonim);
 int usun_postac(Lista *lista, const char *pseudonim);
 
 #endif
+
