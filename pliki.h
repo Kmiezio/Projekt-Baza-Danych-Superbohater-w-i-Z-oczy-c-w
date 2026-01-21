@@ -3,7 +3,8 @@
 
 #include "lista.h"
 
-int zapisz_do_pliku(const Lista *lista, const char *nazwa);
-int wczytaj_z_pliku(Lista *lista, const char *nazwa);
+int zapisz_do_pliku(const Lista *lista, const char *nazwa_pliku);
+int wczytaj_z_pliku(Lista *lista, const char *nazwa_pliku);
 
 #endif
+
