@@ -31,3 +31,4 @@ Postac utworz_postac(void);
 void edytuj_postac(Postac *p);
 
 #endif
+ 
