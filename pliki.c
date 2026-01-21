@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include "pliki.h"
 
-int zapisz_do_pliku(const Lista *lista, const char *nazwa) {
-    FILE *f = fopen(nazwa, "wb");
-    if (!f) return 0;
+int zapisz_do_pliku(const Lista *lista, const char *nazwa_pliku) {
+    FILE *f = fopen(nazwa_pliku, "wb");
+    if (!f) {
+        printf("Blad: nie mozna otworzyc pliku do zapisu.\n");
+        return 0;
+    }
 
     Wezel *tmp = lista->head;
     while (tmp) {
@@ -16,15 +19,34 @@ int zapisz_do_pliku(const Lista *lista, const char *nazwa) {
     return 1;
 }
 
-int wczytaj_z_pliku(Lista *lista, const char *nazwa) {
-    FILE *f = fopen(nazwa, "rb");
-    if (!f) return 0;
+int wczytaj_z_pliku(Lista *lista, const char *nazwa_pliku) {
+    FILE *f = fopen(nazwa_pliku, "r");
+    if (!f) {
+        printf("Brak pliku danych – start z pusta baza.\n");
+        return 0;
+    }
 
+    char linia[512];
     Postac p;
-    while (fread(&p, sizeof(Postac), 1, f) == 1) {
-        dodaj_postac(lista, p);
+    int rola, status;
+
+    while (fgets(linia, sizeof(linia), f)) {
+        if (sscanf(linia, " %99[^;];%d;%99[^;];%d;%99[^;];%d",
+            p.pseudonim,
+            &rola,
+            p.moc,
+            &p.poziom_zagrozenia,
+            p.dzielnica,
+            &status
+        ) == 6) {
+
+            p.rola = (Rola)rola;
+            p.status = (Status)status;
+            dodaj_postac(lista, p);
+        }
     }
 
     fclose(f);
     return 1;
 }
+
