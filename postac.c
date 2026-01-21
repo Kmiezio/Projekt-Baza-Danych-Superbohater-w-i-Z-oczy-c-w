@@ -5,7 +5,7 @@
 Postac utworz_postac(void) {
     Postac p;
     int tmp;
-
+ 
     printf("Pseudonim: ");
     fgets(p.pseudonim, MAX_TXT, stdin);
     p.pseudonim[strcspn(p.pseudonim, "\n")] = 0;
