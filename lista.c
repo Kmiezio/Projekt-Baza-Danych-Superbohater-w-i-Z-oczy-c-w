@@ -104,3 +104,76 @@ void sortuj_po_zagrozeniu(Lista *lista) {
         }
     } while (zamiana);
 }
+static void wypisz_postac(const Postac *p) {
+    printf("Pseudonim: %s\n", p->pseudonim);
+    printf("Rola: %d\n", p->rola);
+    printf("Moc: %s\n", p->moc);
+    printf("Poziom zagrozenia: %d\n", p->poziom_zagrozenia);
+    printf("Dzielnica: %s\n", p->dzielnica);
+    printf("Status: %d\n", p->status);
+    printf("---------------------------\n");
+}
+void wyszukaj_po_pseudonimie(const Lista *lista, const char *prefiks) {
+    Wezel *tmp = lista->head;
+    int znaleziono = 0;
+
+    while (tmp) {
+        if (strncmp(tmp->dane.pseudonim, prefiks, strlen(prefiks)) == 0) {
+            wypisz_postac(&tmp->dane);
+            znaleziono = 1;
+        }
+        tmp = tmp->next;
+    }
+
+    if (!znaleziono)
+        printf("Brak postaci pasujacych do kryterium.\n");
+}
+void wyszukaj_po_dzielnicy(const Lista *lista, const char *dzielnica) {
+    Wezel *tmp = lista->head;
+    int znaleziono = 0;
+
+    while (tmp) {
+        if (strcmp(tmp->dane.dzielnica, dzielnica) == 0) {
+            wypisz_postac(&tmp->dane);
+            znaleziono = 1;
+        }
+        tmp = tmp->next;
+    }
+
+    if (!znaleziono)
+        printf("Brak postaci w podanej dzielnicy.\n");
+}
+void wyszukaj_po_zagrozeniu(const Lista *lista, int poziom) {
+    Wezel *tmp = lista->head;
+    int znaleziono = 0;
+
+    while (tmp) {
+        if (tmp->dane.poziom_zagrozenia >= poziom) {
+            wypisz_postac(&tmp->dane);
+            znaleziono = 1;
+        }
+        tmp = tmp->next;
+    }
+
+    if (!znaleziono)
+        printf("Brak postaci spelniajacych kryterium zagrozenia.\n");
+}
+void sortuj_po_pseudonimie(Lista *lista) {
+    if (!lista->head) return;
+
+    int zamiana;
+    do {
+        zamiana = 0;
+        Wezel *a = lista->head;
+
+        while (a->next) {
+            if (strcmp(a->dane.pseudonim, a->next->dane.pseudonim) > 0) {
+                Postac tmp = a->dane;
+                a->dane = a->next->dane;
+                a->next->dane = tmp;
+                zamiana = 1;
+            }
+            a = a->next;
+        }
+    } while (zamiana);
+}
